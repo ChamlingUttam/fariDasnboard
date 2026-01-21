@@ -1,0 +1,32 @@
+### create
+POST http://localhost:4000/api/crud/create
+Content-Type: application/json
+
+{
+  "faculty": "Management",
+  "gender": "male",
+  "position": "HR",
+  "contact": "9832432423"
+}
+
+
+#read
+###
+GET http://localhost:4000/api/crud/
+
+
+###update
+PUT http://localhost:4000/api/crud/CRUD_ID_HERE
+Content-Type: application/json
+
+{
+  "faculty": "Computer Science",
+  "gender": "male",
+  "position": "senior member",
+  "contact": "9800000000"
+}
+
+
+###delete
+###
+DELETE http://localhost:4000/api/crud/CRUD_ID_HERE
