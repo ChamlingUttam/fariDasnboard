@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import toast from "react-hot-toast";
+import { useAuthStore } from "../stores/auth.store";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -7,15 +9,48 @@ const Login = () => {
     password: "",
   });
 
+  const {login,isLogging} = useAuthStore()
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+
+  const vaidationForm = ()=>{
+ if(!formData.email.trim()){
+        toast.error("email is required")
+        return false
+    }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      toast.error("Invalid email format");
+      return false;
+    }
+
+    if(!formData.password){
+        toast.error("password is required")
+        return false
+    }
+
+     if (formData.password.length < 8) {
+      toast.error("Password must be at least 8 characters");
+      return false;
+    }
+
+    return true;
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    
+    const sucess = vaidationForm()
+    if(sucess){
+      login(formData)
+       setFormData({
+            fullname:"",
+            email:"",
+            password:"",
+        })
+    }
   };
 
   return (
@@ -67,10 +102,11 @@ const Login = () => {
           </div>
 
           <button
+          disabled={isLogging}
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
           >
-            Login
+            {isLogging ? "Logging..." : "Login"}
           </button>
         </form>
 

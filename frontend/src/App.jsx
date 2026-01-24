@@ -1,6 +1,7 @@
 import React from "react";
 import { Toaster } from "react-hot-toast";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 const App = () => {
   return (
@@ -10,6 +11,7 @@ const App = () => {
 
 
       <Register />
+      <Login/>
     </>
   );
 };
