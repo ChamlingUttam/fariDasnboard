@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { useAuthStore } from "../stores/auth.store";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,8 @@ const Register = () => {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate()
 
   const [showPassword, setShowPassword] = useState(false);
   const{register,isRegistering} =useAuthStore()
@@ -57,6 +60,7 @@ const Register = () => {
             email:"",
             password:"",
         })
+    navigate('/login')
     }
   };
 
@@ -135,9 +139,9 @@ const Register = () => {
 
         <p className="text-sm text-center mt-4">
           Already have an account?{" "}
-          <span className="text-blue-600 cursor-pointer hover:underline">
+          <Link to='/login' className="text-blue-600 cursor-pointer hover:underline">
             Login
-          </span>
+          </Link>
         </p>
       </div>
     </div>

@@ -14,7 +14,7 @@ export const useAuthStore = create((get,set)=>({
         try {
         const res = await api.post("/auth/register",data)
         set({authUser:res.data})    
-        toast.success("sucessfully registered")
+        toast.success(" registered successfully")
         } catch (error) {
             toast.error(error.response?.data?.message||"register failed")
         }
@@ -29,7 +29,7 @@ export const useAuthStore = create((get,set)=>({
         try {
             const res = await api.post("/auth/login",data)
             set({authUser:res.data})
-            toast.success("login sucessful")
+            toast.success("login success")
         } catch (error) {
             toast.error(error.response?.data?.message||"login failed")
 
