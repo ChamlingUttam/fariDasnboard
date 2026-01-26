@@ -1,14 +1,14 @@
-import { Navigate } from "react-router-dom";
-import { useAuthStore } from "../stores/auth.store";
+// import { Navigate } from "react-router-dom";
+// import { useAuthStore } from "../stores/auth.store";
 
-const ProtectedRoute = ({ children }) => {
-  const { authUser } = useAuthStore();
+// const ProtectedRoute = ({ children }) => {
+//   const { authUser } = useAuthStore();
 
-  if (!authUser) {
-    return <Navigate to="/login" replace />;
-  }
+//   if (!authUser) {
+//     return <Navigate to="/login" replace />;
+//   }
 
-  return children;
-};
+//   return children;
+// };
 
-export default ProtectedRoute;
+// export default ProtectedRoute;

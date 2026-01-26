@@ -60,8 +60,8 @@ const Register = () => {
             email:"",
             password:"",
         })
-    navigate('/login')
     }
+    navigate('/login')
   };
 
   return (

@@ -5,7 +5,7 @@ const Sidebar = () => {
     <div className="h-screen w-64 bg-gray-900 text-white fixed left-0 top-0">
       {/* Logo */}
       <div className="h-16 flex items-center justify-center text-xl font-bold border-b border-gray-700">
-        Admin Panel
+        Dashboard
       </div>
 
       {/* Menu */}

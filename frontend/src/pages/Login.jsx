@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link,  useNavigate } from "react-router-dom";
 import { useAuthStore } from "../stores/auth.store";
 
 const Login = () => {
@@ -10,12 +10,14 @@ const Login = () => {
     password: "",
   });
 
+  const navigate =  useNavigate()
+
   const [showPassword, setShowPassword] = useState(false);
 
-  const { login, isLoggingIn, authUser } = useAuthStore();
-  const navigate = useNavigate();
+  const { login, isLoggingIn } = useAuthStore();
+  
 
-  // ---------------- FORM HANDLERS ----------------
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -49,22 +51,19 @@ const Login = () => {
 
     if (!validateForm()) return;
 
-    try {
-      await login(formData); // wait for auth
-      setFormData({ email: "", password: "" });
-    } catch (error) {
-      console.error(error.message)
+    const success = validateForm()
+    if(success){
+      login(formData)
+      setFormData({
+        email:"",
+        password:"",
+      })
     }
+    navigate('/')
   };
 
-  // ---------------- REDIRECT AFTER LOGIN ----------------
-  useEffect(() => {
-    if (authUser) {
-      navigate("/");
-    }
-  }, [authUser, navigate]);
+ 
 
-  // ---------------- UI ----------------
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
