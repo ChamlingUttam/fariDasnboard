@@ -23,6 +23,7 @@ export const update = async (req,res)=>{
     const {faculty,gender,position,contact} = req.body
     try {
         const updateInfo = await Crud.findByIdAndUpdate(id,{faculty,gender,position,contact},{new:true})
+        res.status(200).json(updateInfo)
     } catch (error) {
             return res.status(500).json({message:error.message||"something went wrong with edit"})        
     }
