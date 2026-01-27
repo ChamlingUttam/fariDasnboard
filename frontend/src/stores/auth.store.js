@@ -11,6 +11,7 @@ export const useAuthStore = create(
       isLoggingIn: false,
       isRegistering: false,
       isLoggingOut: false,
+      isChangingPass: false,
 
       // ================= REGISTER =================
       register: async (data) => {
@@ -21,9 +22,7 @@ export const useAuthStore = create(
           toast.success("Registered successfully");
           return res.data;
         } catch (error) {
-          toast.error(
-            error.response?.data?.message || "Registration failed"
-          );
+          toast.error(error.response?.data?.message || "Registration failed");
           throw error;
         } finally {
           set({ isRegistering: false });
@@ -39,9 +38,7 @@ export const useAuthStore = create(
           toast.success("Login successful");
           return res.data;
         } catch (error) {
-          toast.error(
-            error.response?.data?.message || "Login failed"
-          );
+          toast.error(error.response?.data?.message || "Login failed");
           throw error;
         } finally {
           set({ isLoggingIn: false });
@@ -61,9 +58,23 @@ export const useAuthStore = create(
           set({ isLoggingOut: false });
         }
       },
+
+      // ================= CHANGE PASSWORD =================
+      changePassword: async (data) => {
+        set({ isChangingPass: true });
+        try {
+          const res = await api.put("/auth/changePass", data);
+          toast.success(res.data.message || "Password changed successfully");
+        } catch (error) {
+          toast.error(error.response?.data?.message || "Failed to change password");
+        } finally {
+          set({ isChangingPass: false });
+        }
+      },
     }),
     {
-      name: "auth-store", 
+      name: "auth-store",
+      partialize: (state) => ({ authUser: state.authUser }), // only persist authUser
     }
   )
 );

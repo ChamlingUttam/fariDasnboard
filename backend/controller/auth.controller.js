@@ -95,13 +95,47 @@ export const logout = async(req,res)=>
             httpOnly:true
         })
 
-        res.status(200).json({message:"logout suessfully"})
+        res.status(200).json({message:"logout successfully"})
     } catch (error) {
         res.status(500).json({message:error.message||"something went wrong with logout"})
     }
 }
 
 
-export const changePass = async(req,res)=>{
-  
-}
+
+
+export const changePass = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    if (newPassword.length < 8) {
+      return res
+        .status(400)
+        .json({ message: "Password must be at least 8 characters" });
+    }
+
+    const user = await User.findById(userId);
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+
+    if (!isMatch) {
+      return res
+        .status(400)
+        .json({ message: "Current password incorrect" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+    await user.save();
+
+    res.status(200).json({ message: "Password changed successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+

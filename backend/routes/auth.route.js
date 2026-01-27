@@ -1,12 +1,17 @@
-import express from 'express'
-import { changePass, login, logout, register } from '../controller/auth.controller.js'
-import { protectedRoute } from '../middleware/auth.middleware.js'
+import express from "express";
+import {
+  register,
+  login,
+  logout,
+  changePass,
+} from "../controller/auth.controller.js";
+import { protectedRoute } from "../middleware/auth.middleware.js";
 
-const routerAuth = express.Router()
+const routerAuth = express.Router();
 
+routerAuth.post("/register", register);
+routerAuth.post("/login", login);
+routerAuth.post("/logout", logout);
+routerAuth.put("/changePass", protectedRoute, changePass);
 
-routerAuth.post("/register",register)
-routerAuth.post("/login",login)
-routerAuth.post("/logout",logout)
-routerAuth.post('/changePass',protectedRoute,changePass)
-export default routerAuth
+export default routerAuth;
