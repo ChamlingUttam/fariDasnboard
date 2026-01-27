@@ -7,6 +7,11 @@ const crudSchema = new mongoose.Schema(
     //   ref: "User",
     //   required: true,
     // },
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     faculty: {
       type: String,
       required: true,

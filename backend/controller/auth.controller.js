@@ -100,3 +100,8 @@ export const logout = async(req,res)=>
         res.status(500).json({message:error.message||"something went wrong with logout"})
     }
 }
+
+
+export const changePass = async(req,res)=>{
+  
+}
