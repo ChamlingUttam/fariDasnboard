@@ -53,3 +53,14 @@ export const deleteInfo = async (req,res)=>{
         
     }
 }
+
+
+ export const totalCount = async(req,res)=>{
+    try {
+        const total = await Crud.countDocuments()
+        res.status(200).json({totalCounts:total})
+    } catch (error) {
+        res.status(500).json({message:"something went wrong with count"})
+    }
+
+}

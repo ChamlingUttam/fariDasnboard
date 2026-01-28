@@ -28,7 +28,7 @@ const App = () => {
         />
         <Route
           path="/register"
-          element={!authUser ? <Register /> : <Navigate to="/" />}
+          element={!authUser ? <Register /> : <Navigate to="/login" />}
         />
 
         {/* Protected layout routes */}

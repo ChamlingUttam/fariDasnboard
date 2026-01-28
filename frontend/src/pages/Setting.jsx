@@ -2,9 +2,11 @@ import { useState } from "react";
 import { useAuthStore } from "../stores/auth.store";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { CgProfile } from "react-icons/cg";
+
 
 const Setting = () => {
-  const { changePassword, isChangingPass } = useAuthStore();
+  const { changePassword, isChangingPass,authUser } = useAuthStore();
 
   const [formData, setFormData] = useState({
     currentPassword: "",
@@ -13,6 +15,8 @@ const Setting = () => {
 
   const [showCurrent, setShowCurrent] = useState(false);
   const [showNew, setShowNew] = useState(false);
+
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -36,8 +40,13 @@ const Setting = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+      <div className="flex flex-col mb-4 w-full  items-center">
+        <span className=""><CgProfile fontSize={60} /></span>
+        <h1 className="text-md text-center font-bold text-gray-600">{authUser.fullname}</h1>
+
+      </div>
+      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow ">
         <h2 className="text-xl font-bold mb-6 text-center">Change Password</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">

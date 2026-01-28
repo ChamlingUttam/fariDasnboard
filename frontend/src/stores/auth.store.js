@@ -12,6 +12,7 @@ export const useAuthStore = create(
       isRegistering: false,
       isLoggingOut: false,
       isChangingPass: false,
+      
 
       // ================= REGISTER =================
       register: async (data) => {
@@ -71,6 +72,7 @@ export const useAuthStore = create(
           set({ isChangingPass: false });
         }
       },
+
     }),
     {
       name: "auth-store",
