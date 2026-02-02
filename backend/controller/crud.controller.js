@@ -47,7 +47,7 @@ export const deleteInfo = async (req,res)=>{
         const {id}  = req.params
 
         await Crud.findByIdAndDelete(id)
-        res.status(200).json({message:"delted sucessfully"})
+        res.status(200).json({message:"deleted successfully"})
     } catch (error) {
             return res.status(500).json({message:error.message||"something went wrong with delete"})        
         
@@ -55,12 +55,47 @@ export const deleteInfo = async (req,res)=>{
 }
 
 
+
+//counting the total number of employee,faculty....etc
  export const totalCount = async(req,res)=>{
     try {
-        const total = await Crud.countDocuments()
-        res.status(200).json({totalCounts:total})
+       const result = await Crud.aggregate([
+        {
+            $facet:{
+                totalPeople:[
+                    {$count:"count"}
+                ],
+                facultyWise:[
+                    {
+                        $group:{
+                            _id : "$faculty",
+                            count:{$sum:1}
+                        }
+                    },
+                    {
+                        $project:{
+                            _id:0,
+                            faculty:"$_id",
+                            count:1
+                        }
+                    }
+                ]
+            }
+        }
+       ])
+
+       res.status(200).json({
+        totalPeople:result[0].totalPeople[0]?.count || 0,
+        facultyWise:result[0].facultyWise
+       })
     } catch (error) {
         res.status(500).json({message:"something went wrong with count"})
     }
 
 }
+
+
+
+
+
+
