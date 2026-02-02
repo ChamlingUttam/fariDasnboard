@@ -10,6 +10,7 @@ export const useCrudStore = create((set,get)=>({
     isCreating:false,
     isUpdating:false,
     isDeleting:false,
+    isReading:false,
 
 
     countPeople:async ()=>{
@@ -88,5 +89,19 @@ export const useCrudStore = create((set,get)=>({
         }finally{
             set({isDeleting:false})
         }
+    },
+    getAllRecord:async()=>{
+        set({isReading:true})
+
+        try {
+            const res = await api.get('/crud')
+           set({people:res.data})
+            
+        } catch (error) {
+            toast.error(error.message||"can't read the data")
+        }finally{
+            set({isReading:false})
+        }
+
     }
 }))

@@ -3,14 +3,14 @@ import Crud from "../models/curd.model.js";
 
 export const create = async(req,res)=>{
 
-    const {contact,faculty,position,gender} = req.body
+    const {name,contact,faculty,position,gender} = req.body
 
     try {
-        if(!contact||!faculty||!position||!gender){
+        if(!name,!contact||!faculty||!position||!gender){
             return res.status(403).json({message:"fill the required field"})
         }
 
-        const newInfoCreate = await Crud.create({faculty,contact,gender,position})
+        const newInfoCreate = await Crud.create({name,faculty,contact,gender,position})
         res.status(201).json(newInfoCreate)
     } catch (error) {
         res.status(500).json({message:error.message||"something went wromg with create"})

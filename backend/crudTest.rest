@@ -3,11 +3,13 @@ POST http://localhost:4000/api/crud/create
 Content-Type: application/json
 
 {
+  "name": "qwerty",
   "faculty": "Management",
   "gender": "male",
   "position": "HR",
-  "contact": "9832432423"
+  "contact": "9832432421"
 }
+
 
 
 #read
