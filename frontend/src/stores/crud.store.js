@@ -105,3 +105,19 @@ export const useCrudStore = create((set,get)=>({
 
     }
 }))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

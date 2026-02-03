@@ -41,6 +41,7 @@ export const register = async (req, res) => {
       _id: newUser._id,
       fullname: newUser.fullname,
       email: newUser.email,
+      role:newUser.role
     });
   } catch (error) {
     res.status(500).json({
@@ -78,7 +79,8 @@ export const login = async (req,res)=>{
         res.status(200).json({
             _id:ownEmail._id,
             email:ownEmail.email,
-            fullname:ownEmail.fullname
+            fullname:ownEmail.fullname,
+            role:ownEmail.role
         })
         
     } catch (error) {
