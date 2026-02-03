@@ -77,11 +77,11 @@ export const useCrudStore = create((set,get)=>({
     deleteRecord:async(id)=>{
         set({isDeleting:true})
         try {
-            await api.delete(`/crud./delete/${id}`)
+            await api.delete(`/crud/delete/${id}`)
             set((state)=>({
                 people:state.people.filter((p)=>p._id !==id)
             }))
-            await get().facultyWise()
+            await get().getAllRecord()
             toast.success("Record deleted")
             
         } catch (error) {

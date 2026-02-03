@@ -24,15 +24,17 @@ const Profiles = () => {
     contact: "",
   });
 
-  // FETCH DATA
+  // 🔹 FETCH DATA ON LOAD
   useEffect(() => {
     getAllRecord();
-  }, []);
+  }, [getAllRecord]);
 
+  // 🔹 HANDLE INPUT CHANGE
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // 🔹 RESET FORM
   const resetForm = () => {
     setForm({
       name: "",
@@ -43,6 +45,7 @@ const Profiles = () => {
     });
   };
 
+  // 🔹 VALIDATION
   const validation = () => {
     if (
       !form.name ||
@@ -57,16 +60,15 @@ const Profiles = () => {
     return true;
   };
 
+  // 🔹 CREATE / UPDATE
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validation()) return;
 
     if (editId) {
       await updateRecord(editId, form);
-      toast.success("Record updated");
     } else {
       await create(form);
-      toast.success("Record created");
     }
 
     resetForm();
@@ -74,7 +76,9 @@ const Profiles = () => {
     setShowForm(false);
   };
 
+  // 🔹 EDIT
   const handleEdit = (item) => {
+
     setEditId(item._id);
     setForm({
       name: item.name,
@@ -86,10 +90,17 @@ const Profiles = () => {
     setShowForm(true);
   };
 
+
+  const handleDelete = (id)=>{
+
+    deleteRecord(id)
+
+  }
+
   return (
     <div className="relative min-h-screen flex flex-col items-center p-8">
 
-      {/* ADD BUTTON */}
+      {/* ➕ ADD BUTTON */}
       <button
         onClick={() => setShowForm(true)}
         className="absolute top-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow hover:bg-blue-700"
@@ -97,7 +108,7 @@ const Profiles = () => {
         <FiPlus size={20} />
       </button>
 
-      {/* TABLE */}
+      {/* 📋 TABLE */}
       <div className="w-full max-w-5xl mt-10 bg-white rounded shadow">
         <table className="w-full border">
           <thead className="bg-gray-100">
@@ -127,7 +138,7 @@ const Profiles = () => {
                     Edit
                   </button>
                   <button
-                    onClick={() => deleteRecord(item._id)}
+                    onClick={() => handleDelete(item._id)}
                     className="px-3 py-1 bg-red-600 text-white rounded"
                   >
                     Delete
@@ -147,7 +158,7 @@ const Profiles = () => {
         </table>
       </div>
 
-      {/* MODAL */}
+      {/* 🪟 MODAL */}
       {showForm && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white w-full max-w-xl p-6 rounded shadow relative">
