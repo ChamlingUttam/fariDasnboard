@@ -18,7 +18,7 @@ export const useAuthStore = create(
       register: async (data) => {
         set({ isRegistering: true });
         try {
-          const res = await api.post("/auth/register", data);
+          const res = await api.post("/api/auth/register", data);
           set({ authUser: res.data });
           toast.success("Registered successfully");
           return res.data;
@@ -34,7 +34,7 @@ export const useAuthStore = create(
       login: async (data) => {
         set({ isLoggingIn: true });
         try {
-          const res = await api.post("/auth/login", data);
+          const res = await api.post("/api/auth/login", data);
           set({ authUser: res.data });
           toast.success("Login successful");
           return res.data;
@@ -50,7 +50,7 @@ export const useAuthStore = create(
       logout: async () => {
         set({ isLoggingOut: true });
         try {
-          await api.post("/auth/logout");
+          await api.post("/api/auth/logout");
           set({ authUser: null });
           toast.success("Logged out");
         } catch (error) {
@@ -64,7 +64,7 @@ export const useAuthStore = create(
       changePassword: async (data) => {
         set({ isChangingPass: true });
         try {
-          const res = await api.put("/auth/changePass", data);
+          const res = await api.put("/api/auth/changePass", data);
           toast.success(res.data.message || "Password changed successfully");
         } catch (error) {
           toast.error(error.response?.data?.message || "Failed to change password");
