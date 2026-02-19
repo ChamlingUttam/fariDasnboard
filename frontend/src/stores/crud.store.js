@@ -16,7 +16,7 @@ export const useCrudStore = create((set,get)=>({
     countPeople:async ()=>{
         set({loading:true})
         try {
-            const res = await api.get("/api/crud")
+            const res = await api.get("/crud")
             set({people:res.data})
         } catch (error) {
             set({error:error.message})
@@ -29,7 +29,7 @@ export const useCrudStore = create((set,get)=>({
     countFacultyWise:async()=>{
         set({loading:true})
         try {
-            const res = await api.get("/api/crud/count")
+            const res = await api.get("/crud/count")
             set({
                 totalPeople:res.data.totalPeople,
                 facultyWise:res.data.facultyWise
@@ -45,7 +45,7 @@ export const useCrudStore = create((set,get)=>({
         set({isCreating:true})
 
         try {
-            const res = await api.post("/api/crud/create",data)
+            const res = await api.post("/crud/create",data)
             set((state)=>({
                 people:[...state.people,res.data]
             }))
@@ -60,7 +60,7 @@ export const useCrudStore = create((set,get)=>({
     updateRecord:async(id,data)=>{
         set({isUpdating:true})
         try {
-            const res = await api.put(`/api/crud/edit/${id}`,data)
+            const res = await api.put(`/crud/edit/${id}`,data)
             set((state)=>({
                 people:state.people.map((p)=>
                 p._id===id?res.data : p
@@ -77,7 +77,7 @@ export const useCrudStore = create((set,get)=>({
     deleteRecord:async(id)=>{
         set({isDeleting:true})
         try {
-            await api.delete(`/api/crud/delete/${id}`)
+            await api.delete(`/crud/delete/${id}`)
             set((state)=>({
                 people:state.people.filter((p)=>p._id !==id)
             }))
@@ -94,7 +94,7 @@ export const useCrudStore = create((set,get)=>({
         set({isReading:true})
 
         try {
-            const res = await api.get('/api/crud')
+            const res = await api.get('/crud')
            set({people:res.data})
             
         } catch (error) {
