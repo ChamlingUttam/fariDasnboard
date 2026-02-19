@@ -1,6 +1,6 @@
 import axios from "axios"
 
 export const api = axios.create({
-    baseURL:"https://dasnboard.onrender.com",
+    baseURL:"https://localhost:4000/api",
     withCredentials:true,
 })
