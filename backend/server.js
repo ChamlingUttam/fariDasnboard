@@ -15,7 +15,7 @@ app.use(cookieParser()); // ✅ MUST be before routes
 
 app.use(
   cors({
-    origin: "https://localhost:5173",
+    origin: "https://faridasnboard-1.onrender.com",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
